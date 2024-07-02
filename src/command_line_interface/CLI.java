@@ -1,18 +1,23 @@
 package command_line_interface;
 
 public class CLI {
-    public CLI() {
+    private static final String PROMPT_SYMBOL   = "$ ";
 
+    public CLI() {
+        System.out.println("Study of finite state machine");
+        System.out.println("Firing up command line interface... type something!");
     }
 
     public void run() {
-        
+        while (true) {
+            System.out.print(PROMPT_SYMBOL);
+            java.util.Scanner sc = new java.util.Scanner(System.in);
+            sc.nextLine();
+        }
     }
 
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.println("Study at finite state machines (FSM)");
-        System.out.println("First step is creating a shell structure.");
+        CLI commandLineInterface = new CLI();
+        commandLineInterface.run();
     }
 }
