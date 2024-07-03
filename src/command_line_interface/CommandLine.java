@@ -3,8 +3,11 @@ package command_line_interface;
 import command_line_interface.commands.Command;
 import command_line_interface.commands.Exit;
 import command_line_interface.commands.RunDFA;
+import command_line_interface.exceptions.NoSuchCommandException;
 import state_machine.DeterministicFiniteAutomaton;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -60,20 +63,32 @@ public class CommandLine {
     /**
      * Starts the program and the command line interface (CLI).
      */
+    // todo: rework how Scanner and nextLine operate
     public void run() {
         while (status.isRunning()) {
             System.out.print(PROMPT_SYMBOL);
             java.util.Scanner sc = new java.util.Scanner(System.in);
             String line = sc.nextLine();
 
-            String[] args = line.split(" ");
-
-            Command todo_change_name = commands.get(args[0]);
-            if (todo_change_name == null) {
-                continue;
+            try {
+                executeLine(line);
+            } catch (NoSuchCommandException e) {
+                System.out.println("Command not found"); // todo: this is magic variable
             }
-            todo_change_name.execute(args);
         }
+    }
+
+    private void executeLine(String line) throws NoSuchCommandException {
+        String[] lineParts = line.split(" ");
+        String commandName = lineParts[0];
+        String[] args = Arrays.copyOfRange(lineParts, 1, lineParts.length);
+
+        Command command = commands.get(commandName);
+        if (command == null) {
+            throw new NoSuchCommandException();
+        }
+
+        command.execute(args);
     }
 
     public static void main(String[] args) {

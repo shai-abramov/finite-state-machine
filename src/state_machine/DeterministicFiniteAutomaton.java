@@ -12,6 +12,15 @@ import java.util.*;
  * @ F          Set of accept states (subset of Sigma)
  */
 public class DeterministicFiniteAutomaton {
+
+    /**
+     * Field Variables:
+     * currentState         The current state of the automaton
+     * transitionTable      Table of transitions from QxSigma to Q
+     * alphabet             Finite set of symbols
+     */
+    // todo: define a class for 'state'. States should be able to be referred to
+    //  and named, like enums.
     private Integer currentState;
     private int[][] transitionTable;
     private final HashMap<Character, Integer> alphabet = new HashMap<>();
@@ -53,8 +62,6 @@ public class DeterministicFiniteAutomaton {
 
         this.transitionTable = newTransitionTable;
     }
-
-    public void removeState(String name) {} // todo: define, removing from table means new table
 
     public void setTransition(Pair<Integer, Character> from, Integer to) {
         int indexOfSymbol = alphabet.get(from.getS());

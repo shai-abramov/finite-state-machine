@@ -12,6 +12,6 @@ public class RunDFA implements Command{
     // todo: get rid of magic numbers
     @Override
     public void execute(String[] args) {
-        DFA.run(args[1]);
+        DFA.run(args[0]);
     }
 }
