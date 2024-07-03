@@ -12,8 +12,8 @@ public class DeterministicFiniteAutomaton {
 
     public DeterministicFiniteAutomaton() {
         currentState = 0;
-        transitions.put(new Pair<>(0, '0'), 1);
-        transitions.put(new Pair<>(0, '1'), 0);
+        transitions.put(new Pair<>(0, '0'), 0);
+        transitions.put(new Pair<>(0, '1'), 1);
         transitions.put(new Pair<>(1, '0'), 0);
         transitions.put(new Pair<>(1, '1'), 1);
     }
@@ -41,5 +41,6 @@ public class DeterministicFiniteAutomaton {
         }
 
         System.out.println("Current state is " + currentState);
+        currentState = 0; // todo: restarts the state
     }
 }
