@@ -1,11 +1,11 @@
 package command_line_interface.commands;
 
-import command_line_interface.CLI;
+import command_line_interface.CommandLine;
 
 public class Exit implements Command{
-    CLI.Status status;
+    CommandLine.Status status;
 
-    public Exit(CLI.Status status) {
+    public Exit(CommandLine.Status status) {
         this.status = status;
     }
 

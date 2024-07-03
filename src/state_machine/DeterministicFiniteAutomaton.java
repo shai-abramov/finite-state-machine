@@ -1,29 +1,69 @@
 package state_machine;
 
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 
+/**
+ * DFAs (deterministic finite automatons) are 5-tuples (Q, Sigma, delta, q0, F) consisting of:
+ * @ Q          Finite set of states
+ * @ Sigma      Finite set of input symbols, called alphabet
+ * @ delta      Transition function from the domain of the cartesian-product (Q x Sigma) to
+ *              codomain Q
+ * @ q0         The initial state
+ * @ F          Set of accept states (subset of Sigma)
+ */
 public class DeterministicFiniteAutomaton {
     private Integer currentState;
-    HashSet<Integer> states = new HashSet<>();
-    Pair<Integer, Character> pair = new Pair<>(1, '0');
-    // todo: consider using state transition table [matrix] instead
-    HashMap<Pair<Integer, Character>, Integer> transitions = new HashMap<>();
+    private int[][] transitionTable;
+    private final HashMap<Character, Integer> alphabet = new HashMap<>();
 
-    public DeterministicFiniteAutomaton() {
+    /**
+     * Constructor for a DFA (deterministic finite automaton)
+     * @param alphabet array of chars containing the alphabet of the created DFA.
+     *                 Once constructed the DFA's alphabet doesn't change throughout
+     *                 the end.
+     */
+    public DeterministicFiniteAutomaton(char[] alphabet) {
         currentState = 0;
-        transitions.put(new Pair<>(0, '0'), 0);
-        transitions.put(new Pair<>(0, '1'), 1);
-        transitions.put(new Pair<>(1, '0'), 0);
-        transitions.put(new Pair<>(1, '1'), 1);
+        transitionTable = new int[0][alphabet.length];
+        for (int i = 0; i < alphabet.length; i++) {
+            this.alphabet.put(alphabet[i], i);
+        }
     }
 
-    public void defineTransition(Pair<Integer, Character> from, Integer to) {
-        transitions.put(from, to);
+    public int getNumberOfStates() { return transitionTable.length; }
+
+    public int getNumberOfSymbols() { return alphabet.size(); }
+
+    public void addState(String name, HashMap<Character, Integer> symbolTransitions) {
+        int numberOfStates = getNumberOfStates();
+        int newNumberOfStates = numberOfStates + 1;
+        int numberOfSymbols = getNumberOfSymbols();
+
+        int[][] newTransitionTable = new int[newNumberOfStates][numberOfSymbols];
+        for (int state = 0; state < numberOfStates; state++) {
+            for (int symbol = 0; symbol < numberOfSymbols; symbol++) {
+                newTransitionTable[state][symbol] = transitionTable[state][symbol];
+            }
+        }
+
+        for (Character key: symbolTransitions.keySet()) {
+            int symbolIndexOnTable = alphabet.get(key);
+            newTransitionTable[currentState][symbolIndexOnTable] = symbolTransitions.get(key);
+        }
+
+        this.transitionTable = newTransitionTable;
+    }
+
+    public void removeState(String name) {} // todo: define, removing from table means new table
+
+    public void setTransition(Pair<Integer, Character> from, Integer to) {
+        int indexOfSymbol = alphabet.get(from.getS());
+        transitionTable[from.getT()][indexOfSymbol] = to;
     }
 
     public void transition(Character symbol) {
-        currentState = transitions.get(new Pair<Integer, Character>(currentState, symbol));
+        int symbolIndex = alphabet.get(symbol);
+        currentState = transitionTable[currentState][symbolIndex];
         System.out.println("transitioned to " + currentState);
     }
 
