@@ -8,3 +8,5 @@ There is another planned package that would define the class of FSMs and their w
 - Add documentation
 - Reconsider if Status class should be an inner class
 - Reconsider the way Scanner works, currently its instance is created every time the user enters a line
+- consider changing way transition function defined - instead of hash map use matrix/table.
+- consider using yield

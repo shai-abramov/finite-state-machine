@@ -2,6 +2,7 @@ package command_line_interface;
 
 import command_line_interface.commands.Command;
 import command_line_interface.commands.Exit;
+import state_machine.DeterministicFiniteAutomaton;
 
 import java.util.HashMap;
 
@@ -27,6 +28,9 @@ public class CLI {
     public CLI() {
         System.out.println("Study of finite state machine");
         System.out.println("Firing up command line interface... type something!");
+
+        DeterministicFiniteAutomaton dfa = new DeterministicFiniteAutomaton();
+        dfa.run("01001011");
 
         commands.put("exit", new Exit(status));
     }

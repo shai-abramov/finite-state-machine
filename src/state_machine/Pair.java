@@ -25,7 +25,7 @@ public class Pair<T, S> {
     // todo: consider implement
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return this.t.hashCode() + this.s.hashCode(); // todo: this is very naive and should be chaged
     }
 
     // todo: consider implement
