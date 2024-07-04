@@ -21,9 +21,9 @@ public class DeterministicFiniteAutomaton {
      */
     // todo: define a class for 'state'. States should be able to be referred to
     //  and named, like enums.
-    private Integer currentState;
-    private int[][] transitionTable;
+    private String currentState;
     private final HashMap<Character, Integer> alphabet = new HashMap<>();
+    TransitionTable t = new TransitionTable();
 
     /**
      * Constructor for a DFA (deterministic finite automaton)
@@ -32,45 +32,46 @@ public class DeterministicFiniteAutomaton {
      *                 the end.
      */
     public DeterministicFiniteAutomaton(char[] alphabet) {
-        currentState = 0;
-        transitionTable = new int[0][alphabet.length];
-        for (int i = 0; i < alphabet.length; i++) {
-            this.alphabet.put(alphabet[i], i);
-        }
+        currentState = "q0";
+//        transitionTable = new int[0][alphabet.length];
+//        for (int i = 0; i < alphabet.length; i++) {
+//            this.alphabet.put(alphabet[i], i);
+//        }
     }
 
-    public int getNumberOfStates() { return transitionTable.length; }
+//    public int getNumberOfStates() { return transitionTable.length; }
 
     public int getNumberOfSymbols() { return alphabet.size(); }
 
-    public void addState(String name, HashMap<Character, Integer> symbolTransitions) {
-        int numberOfStates = getNumberOfStates();
-        int newNumberOfStates = numberOfStates + 1;
-        int numberOfSymbols = getNumberOfSymbols();
-
-        int[][] newTransitionTable = new int[newNumberOfStates][numberOfSymbols];
-        for (int state = 0; state < numberOfStates; state++) {
-            for (int symbol = 0; symbol < numberOfSymbols; symbol++) {
-                newTransitionTable[state][symbol] = transitionTable[state][symbol];
-            }
-        }
-
-        for (Character key: symbolTransitions.keySet()) {
-            int symbolIndexOnTable = alphabet.get(key);
-            newTransitionTable[currentState][symbolIndexOnTable] = symbolTransitions.get(key);
-        }
-
-        this.transitionTable = newTransitionTable;
-    }
+//    public void addState(String name, HashMap<Character, Integer> symbolTransitions) {
+//        int numberOfStates = getNumberOfStates();
+//        int newNumberOfStates = numberOfStates + 1;
+//        int numberOfSymbols = getNumberOfSymbols();
+//
+//        int[][] newTransitionTable = new int[newNumberOfStates][numberOfSymbols];
+//        for (int state = 0; state < numberOfStates; state++) {
+//            for (int symbol = 0; symbol < numberOfSymbols; symbol++) {
+//                newTransitionTable[state][symbol] = transitionTable[state][symbol];
+//            }
+//        }
+//
+//        for (Character key: symbolTransitions.keySet()) {
+//            int symbolIndexOnTable = alphabet.get(key);
+//            newTransitionTable[currentState][symbolIndexOnTable] = symbolTransitions.get(key);
+//        }
+//
+//        this.transitionTable = newTransitionTable;
+//    }
 
     public void setTransition(Pair<Integer, Character> from, Integer to) {
-        int indexOfSymbol = alphabet.get(from.getS());
-        transitionTable[from.getT()][indexOfSymbol] = to;
+//        int indexOfSymbol = alphabet.get(from.getS());
+//        transitionTable[from.getT()][indexOfSymbol] = to;
     }
 
     public void transition(Character symbol) {
-        int symbolIndex = alphabet.get(symbol);
-        currentState = transitionTable[currentState][symbolIndex];
+        //int symbolIndex = alphabet.get(symbol);
+        // currentState = transitionTable[currentState][symbolIndex];
+        currentState = t.nextState(currentState, symbol);
         System.out.println("transitioned to " + currentState);
     }
 
@@ -88,6 +89,6 @@ public class DeterministicFiniteAutomaton {
         }
 
         System.out.println("Current state is " + currentState);
-        currentState = 0; // todo: restarts the state
+        currentState = "q0"; // todo: restarts the state
     }
 }

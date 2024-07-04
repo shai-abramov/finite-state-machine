@@ -53,8 +53,8 @@ public class CommandLine {
         HashMap<Character, Integer> t = new HashMap<>();
         t.put('0', 0);
         t.put('1', 1);
-        dfa.addState("q0", t);
-        dfa.addState("q1", t);
+        // dfa.addState("q0", t);
+        // dfa.addState("q1", t);
 
         commands.put("exit", new Exit(status));
         commands.put("run", new RunDFA(dfa));
