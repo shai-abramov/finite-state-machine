@@ -39,6 +39,7 @@ public class DeterministicFiniteAutomaton {
 //        }
     }
 
+
 //    public int getNumberOfStates() { return transitionTable.length; }
 
     public int getNumberOfSymbols() { return alphabet.size(); }
