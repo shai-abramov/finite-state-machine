@@ -42,6 +42,8 @@ public class TransitionTable {
                 newTable[i][j] = transitionTable[i][j];
             }
         }
+
+        transitionTable = newTable;
     }
 
     public void assignTransition(String from, char symbol, String to) {

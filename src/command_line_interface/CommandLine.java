@@ -1,8 +1,6 @@
 package command_line_interface;
 
-import command_line_interface.commands.Command;
-import command_line_interface.commands.Exit;
-import command_line_interface.commands.RunDFA;
+import command_line_interface.commands.*;
 import command_line_interface.exceptions.NoSuchCommandException;
 import state_machine.DeterministicFiniteAutomaton;
 
@@ -58,6 +56,8 @@ public class CommandLine {
 
         commands.put("exit", new Exit(status));
         commands.put("run", new RunDFA(dfa));
+        commands.put("state", new AddState(dfa));
+        commands.put("transition", new SetTransition(dfa));
     }
 
     /**

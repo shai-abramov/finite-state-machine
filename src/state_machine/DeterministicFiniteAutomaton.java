@@ -63,9 +63,14 @@ public class DeterministicFiniteAutomaton {
 //        this.transitionTable = newTransitionTable;
 //    }
 
-    public void setTransition(Pair<Integer, Character> from, Integer to) {
+    public void setTransition(String from, char symbol, String to) {
+        t.assignTransition(from, symbol, to);
 //        int indexOfSymbol = alphabet.get(from.getS());
 //        transitionTable[from.getT()][indexOfSymbol] = to;
+    }
+
+    public void addState(String stateName) {
+        t.addState(stateName);
     }
 
     public void transition(Character symbol) {

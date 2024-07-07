@@ -2,16 +2,16 @@ package command_line_interface.commands;
 
 import state_machine.DeterministicFiniteAutomaton;
 
-public class AddState implements Command {
+public class SetTransition implements Command {
 
     DeterministicFiniteAutomaton automaton;
 
-    public AddState(DeterministicFiniteAutomaton automaton) {
+    public SetTransition(DeterministicFiniteAutomaton automaton) {
         this.automaton = automaton;
     }
 
     @Override
     public void execute(String[] args) {
-        automaton.addState(args[0]);
+        automaton.setTransition(args[0], args[1].charAt(0), args[2]);
     }
 }
