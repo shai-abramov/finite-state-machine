@@ -27,4 +27,27 @@ public class TransitionTable {
         String newState = transitionTable[i][j];
         return newState;
     }
+
+    public void addState(String newStateName) {
+        int newStateIndex = stateIndices.size();
+        stateIndices.put(newStateName, newStateIndex);
+
+        // extend the table size by 1 and copy the old cells into the new one
+        int oldTableRows = transitionTable.length;
+        int oldTableCols = transitionTable[0].length;
+        String[][] newTable = new String[oldTableRows + 1][oldTableCols];
+
+        for (int i = 0; i < oldTableRows; i++) {
+            for (int j = 0; j < oldTableCols; j++) {
+                newTable[i][j] = transitionTable[i][j];
+            }
+        }
+    }
+
+    public void assignTransition(String from, char symbol, String to) {
+        int fromIndex = stateIndices.get(from);
+        int symbolIndex = symbolIndices.get(symbol);
+
+        transitionTable[fromIndex][symbolIndex] = to;
+    }
 }
