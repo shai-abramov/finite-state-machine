@@ -7,6 +7,7 @@ import state_machine.DeterministicFiniteAutomaton;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * A command line interface, used to provide the user the means to interact with the program.
@@ -38,6 +39,7 @@ public class CommandLine {
      */
     private final Status status = new Status();
     private final HashMap<String, Command> commands = new HashMap<>();
+    private final HashSet<String> statesBuffer = new HashSet<>();
 
     /**
      * Constructor for the command line interface (CLI).
@@ -56,7 +58,8 @@ public class CommandLine {
 
         commands.put("exit", new Exit(status));
         commands.put("run", new RunDFA(dfa));
-        commands.put("state", new AddState(dfa));
+        commands.put("add", new AddState(statesBuffer));
+        commands.put("print", new PrintStates(statesBuffer));
         commands.put("transition", new SetTransition(dfa));
     }
 

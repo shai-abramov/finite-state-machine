@@ -2,16 +2,19 @@ package command_line_interface.commands;
 
 import state_machine.DeterministicFiniteAutomaton;
 
+import java.util.Collections;
+import java.util.HashSet;
+
 public class AddState implements Command {
 
-    DeterministicFiniteAutomaton automaton;
+    private final HashSet<String> states;
 
-    public AddState(DeterministicFiniteAutomaton automaton) {
-        this.automaton = automaton;
+    public AddState(HashSet<String> states) {
+        this.states = states;
     }
 
     @Override
     public void execute(String[] args) {
-        automaton.addState(args[0]);
+        Collections.addAll(states, args);
     }
 }
