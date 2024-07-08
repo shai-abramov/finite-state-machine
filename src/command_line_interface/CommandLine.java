@@ -3,6 +3,7 @@ package command_line_interface;
 import command_line_interface.commands.*;
 import command_line_interface.exceptions.NoSuchCommandException;
 import state_machine.DeterministicFiniteAutomaton;
+import state_machine.TransitionTable;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -18,7 +19,8 @@ public class CommandLine {
     /**
      * CONSTANTS
      */
-    private static final String PROMPT_SYMBOL   = "$ ";
+    private static final String         PROMPT_SYMBOL           = "$ ";
+    private static final Character[]    DEFAULT_ALPHABET        = new Character[] { '0', '1' };
 
     public class Status {
         private boolean isRunning = true;
@@ -39,7 +41,11 @@ public class CommandLine {
      */
     private final Status status = new Status();
     private final HashMap<String, Command> commands = new HashMap<>();
+
     private final HashSet<String> statesBuffer = new HashSet<>();
+    private final HashSet<Character> alphabetBuffer = new HashSet<>(Arrays.asList(DEFAULT_ALPHABET));
+    private final TransitionTable transitionTable = new TransitionTable();
+    private String initialState;
 
     /**
      * Constructor for the command line interface (CLI).
@@ -60,6 +66,7 @@ public class CommandLine {
         commands.put("run", new RunDFA(dfa));
         commands.put("add", new AddState(statesBuffer));
         commands.put("print", new PrintStates(statesBuffer));
+        commands.put("remove", new RemoveState(statesBuffer));
         commands.put("transition", new SetTransition(dfa));
     }
 
