@@ -69,6 +69,12 @@ public class CommandLine {
         commands.put("print", new PrintStates(statesBuffer));
         commands.put("remove", new RemoveState(statesBuffer));
         commands.put("transition", new SetTransition(dfa));
+        commands.put("create", new CreateDFA(statesBuffer,
+                alphabetBuffer,
+                transitionTable,
+                "q0",
+                statesBuffer,
+                dfa));
     }
 
     /**

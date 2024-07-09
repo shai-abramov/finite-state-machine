@@ -23,6 +23,7 @@ public class DeterministicFiniteAutomaton {
     //  and named, like enums.
     private String currentState;
     private final HashMap<Character, Integer> alphabet = new HashMap<>();
+    private HashSet<State> states = new HashSet<>();
     TransitionTable t = new TransitionTable();
 
     /**
@@ -37,6 +38,35 @@ public class DeterministicFiniteAutomaton {
 //        for (int i = 0; i < alphabet.length; i++) {
 //            this.alphabet.put(alphabet[i], i);
 //        }
+    }
+
+    public void assignDfa(Collection<String> states,
+                          Collection<Character> alphabet,
+                          Collection<String> transitionDescriptions) {
+        int stateID = 0;
+        for (String state : states) {
+            this.states.add(new State(state, stateID));
+            stateID++;
+        }
+
+        int characterID = 0;
+        for (Character letter : alphabet) {
+            this.alphabet.put(letter, characterID);
+            characterID++;
+        }
+
+        for (String transitionDescription : transitionDescriptions) {
+            String[] parts = transitionDescription.split(":");
+
+            // fill table of transitions here
+        }
+
+        State[][] transitions = new State[states.size()][alphabet.size()];
+        for (int i = 0; i < states.size(); i++) {
+            for (int j = 0; j < alphabet.size(); j++) {
+                System.out.println(transitions[i][j]);
+            }
+        }
     }
 
 

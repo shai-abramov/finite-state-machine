@@ -30,6 +30,7 @@ public class CreateDFA implements Command {
 
     @Override
     public void execute(String[] args) {
-        this.dfa = new DeterministicFiniteAutomaton();
+        HashSet<String> DUMMY_EXAMPLE = new HashSet<>();
+        dfa.assignDfa(states, symbols, DUMMY_EXAMPLE);
     }
 }
