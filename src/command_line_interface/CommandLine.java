@@ -46,6 +46,7 @@ public class CommandLine {
     private final HashSet<Character> alphabetBuffer = new HashSet<>(Arrays.asList(DEFAULT_ALPHABET));
     private final TransitionTable transitionTable = new TransitionTable();
     private String initialState;
+    private final HashSet<String> acceptingStates = new HashSet<>();
 
     /**
      * Constructor for the command line interface (CLI).
