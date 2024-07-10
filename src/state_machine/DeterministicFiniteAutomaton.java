@@ -45,7 +45,7 @@ public class DeterministicFiniteAutomaton {
                           Collection<String> transitionDescriptions) {
         int stateID = 0;
         for (String state : states) {
-            this.states.add(new State(state, stateID));
+            this.states.add(new State(state));
             stateID++;
         }
 
@@ -67,6 +67,15 @@ public class DeterministicFiniteAutomaton {
                 System.out.println(transitions[i][j]);
             }
         }
+    }
+
+    /**
+     * checks if the dfa is able to run on any input set over its defined alphabet.
+     * i. e - it's transition table is well-defined.
+     * @return true of false
+     */
+    public boolean isComplete() {
+        return false;
     }
 
 
@@ -100,9 +109,14 @@ public class DeterministicFiniteAutomaton {
 //        transitionTable[from.getT()][indexOfSymbol] = to;
     }
 
+    public void addState() {
+        addState("");
+    }
+
     public void addState(String stateName) {
         t.addState(stateName);
     }
+
 
     public void transition(Character symbol) {
         //int symbolIndex = alphabet.get(symbol);
