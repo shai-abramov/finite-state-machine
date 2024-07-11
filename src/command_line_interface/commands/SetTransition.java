@@ -12,6 +12,6 @@ public class SetTransition implements Command {
 
     @Override
     public void execute(String[] args) {
-        automaton.setTransition(args[0], args[1].charAt(0), args[2]);
+//        automaton.setTransition(args[0], args[1].charAt(0), args[2]);
     }
 }

@@ -25,6 +25,7 @@ public class DeterministicFiniteAutomaton {
     private final HashMap<Character, Integer> alphabet = new HashMap<>();
     private HashSet<State> states = new HashSet<>();
     TransitionTable t = new TransitionTable();
+    private State[][] transitions = new State[0][0];
 
     /**
      * Constructor for a DFA (deterministic finite automaton)
@@ -103,11 +104,11 @@ public class DeterministicFiniteAutomaton {
 //        this.transitionTable = newTransitionTable;
 //    }
 
-    public void setTransition(String from, char symbol, String to) {
-        t.assignTransition(from, symbol, to);
-//        int indexOfSymbol = alphabet.get(from.getS());
-//        transitionTable[from.getT()][indexOfSymbol] = to;
-    }
+//    public void setTransition(String from, char symbol, String to) {
+//        t.assignTransition(from, symbol, to);
+////        int indexOfSymbol = alphabet.get(from.getS());
+////        transitionTable[from.getT()][indexOfSymbol] = to;
+//    }
 
     public void addState() {
         addState("");
@@ -115,6 +116,64 @@ public class DeterministicFiniteAutomaton {
 
     public void addState(String stateName) {
         t.addState(stateName);
+    }
+
+    // todo: so far this is under construction
+    public void addTransition(String from, String to) {
+        State fromState, toState;
+        for (State state : states) {
+            if (state.name.equals(from)) {
+                fromState = state;
+            }
+
+            if (state.name.equals(to)) {
+                toState = state;
+            }
+        }
+    }
+
+    public setTransition(String from, char symbol, String to) {
+        State fromState, toState;
+        for (State state : states) {
+            if (state.name.equals(from)) {
+                fromState = state;
+            }
+
+            if (state.name.equals(to)) {
+                toState = state;
+            }
+        }
+
+        int symbolIndex = alphabet.get(symbol);
+        if (symbolIndex == -1) {
+            symbolIndex = alphabet.size();
+            alphabet.put(symbol, symbolIndex);
+
+            extendTableColumn();
+        }
+
+
+    }
+
+    private void extendTableColumn() {
+        int numberOfStates = getNumberOfStates();
+        int newNumberOfStates = numberOfStates + 1;
+        int numberOfSymbols = getNumberOfSymbols();
+
+        int[][] newTransitionTable = new int[newNumberOfStates][numberOfSymbols];
+        for (int state = 0; state < numberOfStates; state++) {
+            for (int symbol = 0; symbol < numberOfSymbols; symbol++) {
+                newTransitionTable[state][symbol] = transitionTable[state][symbol];
+            }
+        }
+
+        for (Character key: symbolTransitions.keySet()) {
+            int symbolIndexOnTable = alphabet.get(key);
+            newTransitionTable[currentState][symbolIndexOnTable] = symbolTransitions.get(key);
+        }
+
+        this.transitionTable = newTransitionTable;
+
     }
 
 
