@@ -139,6 +139,31 @@ public class DeterministicFiniteAutomaton {
         this.transitions = newTransitionTable;
     }
 
+    public void addSymbol(char symbolChar) {
+        alphabet.put(symbolChar, alphabet.size() - 1);
+
+        int previousNumberOfSymbols = getNumberOfSymbols() - 1;
+        int newNumberOfSymbols = getNumberOfSymbols();
+        int numberOfStates = getNumberOfStates();
+
+        State[][] newTransitionTable = new State[numberOfStates][newNumberOfSymbols];
+        for (int state = 0; state < numberOfStates; state++) {
+            for (int symbol = 0; symbol < previousNumberOfSymbols; symbol++) {
+                newTransitionTable[state][symbol] = transitions[state][symbol];
+            }
+        }
+
+        for (int i = 0; i < numberOfStates; i++) {
+            for (State s : states) {
+                if (s.getId() == i) {
+                    newTransitionTable[i][newNumberOfSymbols - 1] = s;
+                }
+            }
+        }
+
+        this.transitions = newTransitionTable;
+    }
+
     // todo: so far this is under construction
     public void addTransition(String from, String to) {
         State fromState, toState;
