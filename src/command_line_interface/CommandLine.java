@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * A command line interface, used to provide the user the means to interact with the program.
@@ -75,6 +77,22 @@ public class CommandLine {
                 "q0",
                 statesBuffer,
                 dfa));
+
+        String helpString = "";
+        for (String commandName : commands.keySet()) {
+            int numberOfTabNeeded = 3 - (commandName.length() / 4);
+            helpString = helpString + commandName;
+            for (int i = 0; i < numberOfTabNeeded; i++) {
+                helpString = helpString + "\t";
+            }
+            helpString = helpString + "-\n";
+        }
+        String finalHelpString = helpString;
+        Runnable helpFunctional = () -> {
+            System.out.println(finalHelpString);
+        };
+
+        commands.put("help", new Help(helpFunctional));
     }
 
     /**
